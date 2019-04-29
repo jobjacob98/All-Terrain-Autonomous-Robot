@@ -1,15 +1,15 @@
-from xbee import XBee
 from serial import Serial
 
-PORT = '/dev/ttyUSB1'
+PORT = '/dev/ttyUSB2'
 BAUD = 9600
 
 ser = Serial(PORT, BAUD)
 
-xbee = XBee(ser)
+if ser.isOpen:
+  print("hello")
 
-xbee.tx(dest_addr='\x00\x01', data='Hi Raspberry Pi')
-
-print(xbee.wait_read_frame())
+while True:
+  data = ser.readline()
+  print(data)
 
 ser.close()
